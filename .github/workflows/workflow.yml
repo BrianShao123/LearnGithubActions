@@ -1,0 +1,36 @@
+name: firstworkflow
+on:
+  # manual running of workflow on github platform
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    # hour 3 minute 0 of every day in a month of every month in a year of every day in a week
+    cron: "0 3 * * *"
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+      # github - windows, linux, macos free runners
+      steps:
+        - name: checkout-code
+          # define path of script to run or use github provided functions like below
+          uses: actions/checkout@v3
+        - name: run-script
+          run: commands here | - for multi-line
+          env:
+            - ENV1: value
+            - ENV2: value
+  # specifying I/O from another job or steps. Testing purposes ex. Unit testing
+  inputs:
+    url: ${{job_name.step_name.specific_value}}
+  outputs:
+    secret: ${{job_name.step_name.specific_value}}
+
+          
+# dev stage test prod
+# development- creating new features
+# stage- completed code for a feature for more whole global testing
+# test- replica of prod. Final testing stage before prod. Bugs must be fixed
+# production- deployed product
